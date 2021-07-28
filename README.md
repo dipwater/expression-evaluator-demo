@@ -16,7 +16,7 @@ The project contains examples\ tests to demonstrate what is already on offer and
 * Performance Considerations  
 
 
-#####Arithmetic Functions  
+##### Arithmetic Functions  
 
 ```
   ExpressionsEvaluator evalExpr = ExpressionsFactory.create("2+3*4-6/2");  
@@ -31,7 +31,7 @@ The project contains examples\ tests to demonstrate what is already on offer and
   assertEquals(Double.valueOf(2), evalExpr.eval(variables));  
   ```
 
-#####String Functions  
+##### String Functions  
 
 ```
   ExpressionsEvaluator evalExpr = ExpressionsFactory.create("LEFT('New York', 3)");
@@ -48,7 +48,7 @@ The project contains examples\ tests to demonstrate what is already on offer and
 
 Some of the included functions are LEFT, RIGHT, CONCATENATE, LEN, TRIM, UPPER, LOWER, FIND, REPLACE and a few more. New functions can be added easily as explained later in the blog.
 
-#####Date Functions
+##### Date Functions
 
 The library internally uses the joda-time library; however it exposes the date as java.util in order to ensure compatibility with standard jdk distribution.
 
@@ -64,7 +64,7 @@ The library internally uses the joda-time library; however it exposes the date a
 
 The keyword DATESTR returns the string representation of a date while DATETIME returns the string representation of both the date as well as the time.
 
-#####Format Functions for Date or Number
+##### Format Functions for Date or Number
 
 ```
   ExpressionsEvaluator evalExpr = ExpressionsFactory.create("FORMAT(ASDATE('20141229','yyyyMMdd'),'MMM-dd-yyyy')");
@@ -75,7 +75,7 @@ The keyword DATESTR returns the string representation of a date while DATETIME r
   assertEquals("54%", ExpressionsFactory.create("FORMAT(0.543, '0%')").eval());
   ```
 
-#####Logical/ Conditional Operators (AND, OR, IF)
+##### Logical/ Conditional Operators (AND, OR, IF)
 
 ```
   ExpressionsEvaluator evalExpr = ExpressionsFactory.create("IF(AND(Score>0,Score<=40), 'Fail', IF(AND(Score>40, Score<=65), 'Grade II','Grade I'))");
@@ -88,7 +88,7 @@ The keyword DATESTR returns the string representation of a date while DATETIME r
 
 The above is a great example of how business logic can be made configuration driven rather than code driven; this makes it easier to just change the expressions and get the updated result rather than changing the code and going through the release-deploy cycle.
 
-#####Customize (Add user defined functions)
+##### Customize (Add user defined functions)
 
 A sample implementation for EXACT function in excel which compares the equality of two string can be done by creating a class CustomKeywords with the method below
 
@@ -107,7 +107,7 @@ and then an example would look like
   assertEquals(true, evalExpr.eval(variables));
   ```
 
-#####Performance
+##### Performance
 
 The performance of the expression engine is comparable to the existing solutions like jexl, embedded javascript engine in jdk et-all. This is based on a benchmark that I had done previously but I would recommend running your own benchmarks and analyze the pros and cons. The following tricks should definitely be included for the performance analysis
 * Minimize new creation of GroovyShell (ExpressionsBuilder allows groovy shell re-use). In a multi-threaded environment use a thread local as groovy shell isn't thread safe.
@@ -115,7 +115,7 @@ The performance of the expression engine is comparable to the existing solutions
 
 A new class is loaded for every new instance of expression - this leads to a slight increase in perm gen memory. This shouldn't be a concern in the majority of cases. However, even in cases where this is a concern the gc option to support class unloading should take care of it. Do reach out in case you need any help with this.
 
-#####Conclusion
+##### Conclusion
 
 As you may have guessed all the functions can be used in conjunction so feel free to explore. All the tests mentioned in the examples above can be found in this maven project.
 
